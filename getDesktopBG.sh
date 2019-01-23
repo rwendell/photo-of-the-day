@@ -1,19 +1,17 @@
 #!/bin/bash
 
-bg_atual=$(gsettings get org.gnome.desktop.background picture-uri)
-cur_path=$(readlink -f $(dirname $0))
-file_name="images/$(date '+%d-%m-%Y').jpg"
-new_path="file://$(readlink -f $cur_path)/${file_name}"
-url_image=$(node $cur_path/index.js)
+file_name="$(date '+%m-%d-%Y').jpg"
+#changed the location of the url_image for better use with i3
+url_image=$(node $HOME/.config/nat-grab/index.js)
 
 # Verify if node returns
 if [[ $? -ne 0 ]] ; then echo "Error: request falure" && exit 1 ; fi
 
 # Create the `images/` folder, if it can
-if [ ! -d "${cur_path}/images" ] ; then mkdir "${cur_path}/images" || exit 1 ; fi
+if [ ! -d "$HOME/media/wallpapers" ] ; then mkdir -p "$HOME/media/wallpapers" || exit 1 ; fi
 
 # Download the 'Photo Of The Day'
-wget $url_image -O "${cur_path}/${file_name}" || { echo 'Imposible to download file' && exit 2; }
+wget $url_image -O "$HOME/media/wallpapers/${file_name}" || { echo 'Imposible to download file' && exit 2; }
 
-# Try set the new
-gsettings set org.gnome.desktop.background picture-uri $new_path || gsettings set org.gnome.desktop.background picture-uri $bg_atual
+# Uses feh to set the background
+feh --bg-scale $HOME/media/wallpapers/${file_name}
