@@ -1,3 +1,5 @@
+:camera::earth_africa::blowfish::sunrise_over_mountains::date: Download and set National Geographic's Photo of the Day as background image
+
 Forked version now works with i3 and other lightweight window managers.
 
 This is a initial idea to save the National Geographic's Photo Of The Day. I love this photos, then I can set them as my desktop background image, what I did before manually.
